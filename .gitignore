@@ -181,12 +181,12 @@ course-material/_build
 *.tgz
 *.rar
 *.arff
-*.db*
+#*.db*
 *.docx
 #*.txt
 jb-bank*
 jb-bank
 uci-marketing-data
-*.duckdb*
+#*.duckdb*
 *.bkp
 *.dtmp
