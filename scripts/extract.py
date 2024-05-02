@@ -1,3 +1,4 @@
+# Paquetes necesarios
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -6,7 +7,7 @@ import time
 from datetime import date
 
 
-
+# headers necesarios para hacer la peticion
 custom_headers = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     'accept-language': 'en-GB,en;q=0.9',
@@ -14,6 +15,11 @@ custom_headers = {
 
        
 def product_info(url):
+    """
+    Extrae la informacion de un enlace para obtener la informacion
+    del producto como titulo, precio, numero de review, calificacion 
+    y url
+    """
     response = requests.get(url, headers=custom_headers)
     if response.status_code != 200:
         print("error de respuesta al request")
@@ -54,6 +60,10 @@ def product_info(url):
     
 
 def fetch_links(web_url):
+    """
+    Crea una funcion para obtener los productos y la lista de los
+    enumerados en la primera pagina de amazon.
+    """
     list_url = set()
     data_extracted = {"title":[], "price":[], "rating":[], "review_number":[],"url":[]}
     response = requests.get(web_url, headers=custom_headers)

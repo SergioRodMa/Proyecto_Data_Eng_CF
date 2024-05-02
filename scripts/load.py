@@ -1,9 +1,19 @@
-#%%
+
 import duckdb
 import pandas as pd
 from datetime import date
-#%%
+
 def create_duck_db_products(duckdb_file_path,products_data):
+    """
+    Crea una base de datos o en su defecto, agrega datos a una base 
+    de datos existente llamda products la cual contendra informacion
+    de varios articulos.
+
+    Parametros
+    -----------
+    duckdb_file_path: ruta al archivo duckdb
+    products_data: datos recopilados de la extraccion
+    """
     try:
         conn = duckdb.connect(duckdb_file_path, read_only=False)
         tables = conn.execute("SHOW TABLES;").fetchall()
@@ -28,6 +38,16 @@ def create_duck_db_products(duckdb_file_path,products_data):
         print(e)
         
 def create_duck_db_history(duckdb_file_path,today):
+    """
+    Crea una base de datos o en su defecto, agrega datos a una base 
+    de datos existente llamada history, la cual guardara la informacion
+    historica del producto.
+
+    Parametros
+    -----------
+    duckdb_file_path: ruta al archivo duckdb
+    today: fecha del dia de hoy 
+    """
     try:
         conn = duckdb.connect(duckdb_file_path, read_only=False)
         tables = conn.execute("SHOW TABLES;").fetchall()
@@ -87,4 +107,4 @@ if __name__ == "__main__":
     duckdb_file_path = "./scripts/products_base.duckdb"
     create_duck_db_products(duckdb_file_path,amazon_df)
     create_duck_db_history(duckdb_file_path,today)
-# %%
+
