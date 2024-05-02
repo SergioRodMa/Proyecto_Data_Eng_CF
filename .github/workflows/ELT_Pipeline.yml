@@ -40,5 +40,8 @@ jobs:
               name: amazon
           - name: Subir datos
             run: python ./scripts/load.py
-
+          - uses: stefanzweifel/git-auto-commit-action@v5
+            with:
+              commit_message: Actualizacion
+               
         
