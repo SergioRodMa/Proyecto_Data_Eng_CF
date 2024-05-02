@@ -84,7 +84,7 @@ def create_duck_db_history(duckdb_file_path,today):
 if __name__ == "__main__":
     today = date.today()
     amazon_df=pd.read_csv("amazon_data.csv")
-    duckdb_file_path = "products_base.duckdb"
+    duckdb_file_path = "./scripts/products_base.duckdb"
     create_duck_db_products(duckdb_file_path,amazon_df)
     create_duck_db_history(duckdb_file_path,today)
 # %%
