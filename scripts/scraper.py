@@ -82,7 +82,7 @@ if __name__ == "__main__":
     amazon_df['title']=amazon_df['title'].replace('', None)
     amazon_df = amazon_df.dropna(subset=['title'])
     amazon_df["Fecha"]=today
-    amazon_df["price"]=amazon_df["price"].str.replace('$','').str.replace(',', '')
+    amazon_df["price"]=amazon_df["price"].astype("string").str.replace('$','').str.replace(',', '')
     amazon_df.to_csv("amazon_data.csv", header=True, index=False)
     print(amazon_df)
     
