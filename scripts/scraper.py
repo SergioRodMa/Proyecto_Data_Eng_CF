@@ -79,7 +79,7 @@ if __name__ == "__main__":
     amazon_url='https://www.amazon.com.mx/s?k=samsung+a54+desbloquedo&rh=n%3A9687460011&__mk_es_MX=%C3%85M%C3%85%C5%BD%C3%95%C3%91&ref=nb_sb_noss'
     product_data=fetch_links(amazon_url)
     amazon_df = pd.DataFrame.from_dict(product_data)
-    amazon_df['title'].replace('', None, inplace=True)
+    amazon_df['title']=amazon_df['title'].replace('', None)
     amazon_df = amazon_df.dropna(subset=['title'])
     amazon_df["Fecha"]=today
     amazon_df["price"]=amazon_df["price"].str.replace('$','').str.replace(',', '')
