@@ -37,7 +37,7 @@ jobs:
               python-version: '3.10' 
               cache: 'pip' # caching pip dependencies
           - run: pip install -r requirements.txt
-          - name: Download users data from Extract Job
+          - name: Download amazon. data from Extract Job
             uses: actions/download-artifact@v4
             with:
               name: amazon
