@@ -9,17 +9,18 @@ En algunas ocasiones es dificil encontrar la mejor oferta y tener la certeza de 
 Se utilizara un webscraping para poder obtener la informacion de precios de un producto, el resultado se alamcenara en una tabla de SQL la cual servira para llevar un rastreo de precio por dia. Adicionalmente se tendra una tabla historica conectada a un tablero para poder visualizar la informacion
 
 ## Diagrama del pipeline
-![pipeline](images/Diagrama_proto.png)
+![pipeline](images/Diagrama_proto.jpg)
 
 ## Acerca del Dataset 🗃️
 El conjunto de datos se generara todos los dias en tres horarios para llevar un segumiento diario. Adicionalmente, todos los dias se pasara la informacion a una tabla historico la cual estara conectada a un visulizador en este caso Power Bi el cual nos podra mostrar de manera grafica las variaciones que ha sufrido el precio del producto asi como el rate de los comment que tiene.
 
 ## 🔗 Link importantes 🔗
 1. [Link a la pagina de extraccion](https://www.amazon.com.mx/s?k=samsung+a54+desbloquedo&rh=n%3A9687460011&__mk_es_MX=%C3%85M%C3%85%C5%BD%C3%95%C3%91&ref=nb_sb_noss)
-2. [Base da datos Duckdb](scripts/products_base.duckdb)
-3. [Notebook del proyecto con el procedimiento detallado](https://nbviewer.org/github/SergioRodMa/Proyecto_CF_ML/blob/main/codigo/Fraude_ML.ipynb)
-4. [PDF presentación del proyecto](Presentacion_Credit_card.pdf)
-5. [Link a la aplicacion de Streamlite](https://fraude.streamlit.app/)
-6. [Link al API del modelo](https://fastapimlcf.ue.r.appspot.com/info)
+2. [Base da datos Duckdb](../scripts/products_base.duckdb)
+3. [Archivo con la descripcion del proyecto](../doc/proyecto.md)
+4. [PDF presentación del proyecto]()
+5. [Visualizador de datos en Power Bi]()
+
+
 
 Creado por Sergio Maldonado Rodriguez

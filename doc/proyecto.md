@@ -49,4 +49,5 @@ Como futuras entregas a parte de aplicar lo del diagrama dos del prototipo, es d
 2. [Base da datos Duckdb](../scripts/products_base.duckdb)
 3. [Archivo con la descripcion del proyecto](../doc/proyecto.md)
 4. [PDF presentación del proyecto]()
+5. [Visualizador de datos en Power Bi]()
 
