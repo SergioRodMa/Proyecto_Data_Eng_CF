@@ -20,10 +20,64 @@ Esta etapa consiste en el webscraping de la página de Amazon, por el cual extra
 La información generada del webscraping se cargará en una tabla transición de SQL, en este primer prototipo se manejara una base de datos local en duckDB. En la cual, se ingestara información a lo largo del día, se tiene planeado que esta ingesta de información se realice tres veces al día para el prototipo. Con esta información se generaría una tabla que almacene la información al día para que de esta forma se puede determinar cuándo un precio de un producto es más bajo a lo largo del día.
 Una mejor opción que es más sostenible y que se planea en otra versión es tener esta información ingestandose de manera más continua en intervalos de 1 hora en una tabla de Snowflake ya que nos ayudaría a tener información más actual y tener mejor perspectiva de los precios del producto.
 
+La informacion se alamecanra en una tabla llamada `products` la cual esta definida de la siguiente forma.
+
+```{sql}
+CREATE TABLE products (
+    title VARCHAR,
+    price VARCHAR,
+    rating VARCHAR,
+    review_number VARCHAR,
+    url VARCHAR,
+    fecha DATE
+);
+```
+
 * **Transformacion:**
 
 Una segunda transformación mas profunda se llevará a cabo sobre la tabla anterior generando una tabla histórica del precio del producto. Esto se realizará antes de que acabe el día y después de la última corrida de ingesta de la primera tabla. Para evitar valores duplicados se ingestara únicamente el valor mínimo de los valores de la tabla transición, o la primera tabla. Esta tabla histórica servirá para poder conectar un visualizador para que sea más fácil el observar y apreciar tendencias en los precios del producto
 Una aplicación para una segunda versión es tener tanto la primera tabla de ingesta como la tabla de histórico en Snowflake, de esta forma se puede programar un Store Procedure que al final del día pueda generar un resumen del precio mínimo del producto al día, al igual que la clasificación de comentarios de este. De igual forma, es más fácil conectar un visualizador a Snowflake para poder mostrar la información del comportamiento del producto.
+
+La informacion historica se guardara en la siguiente tabla llamada `history` la cual esta definida de la siguiente forma
+
+```{sql}
+CREATE TABLE history (
+    title VARCHAR,
+    price FLOAT,
+    avg_rating FLOAT,
+    fecha DATE
+);
+```
+La tranformacion se lleva a cabo de la siguiente forma para ser ingestada en la tabla `history`
+
+```
+WITH base_table AS (
+SELECT 
+    UPPER(title) AS title,
+    TRY_CAST(price AS FLOAT) AS price,
+    TRY_CAST(left(rating,3) AS FLOAT) AS rating,
+    fecha
+FROM products 
+WHERE fecha = '{today}'
+AND title LIKE '%A54%'
+), 
+calculation AS (
+    SELECT 
+    title,
+    price,
+    AVG(rating) OVER (PARTITION BY "fecha") AS avg_rating,
+    fecha,
+    row_number() OVER (ORDER BY price) AS row_num
+FROM base_table
+)
+SELECT 
+    title,
+    price,
+    round(avg_rating,2) AS avg_rating,
+    fecha,
+FROM calculation
+WHERE row_num=1;
+```
 
 * **Analisis:**
 
